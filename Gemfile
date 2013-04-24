@@ -1,8 +1,2 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 gemspec
-
-gem "hashie", :git => "https://github.com/intridea/hashie.git"
-
-group :development, :test do
-  gem 'rake'
-end
