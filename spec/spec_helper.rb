@@ -11,6 +11,8 @@ Dir[File.expand_path('../support/**/*.rb', __FILE__)].each do |file|
 end
 
 RSpec.configure do |config|
+  config.include FactoryGirl::Syntax::Methods
+  
   config.mock_with :rspec
   config.filter_run :focus => true
   config.run_all_when_everything_filtered = true
