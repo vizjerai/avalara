@@ -3,8 +3,8 @@
 require 'spec_helper'
 
 describe Avalara::Request::Line do
-  let(:params) { Factory.attributes_for(:line) }
-  let(:line) { Factory.build_via_new(:line) }
+  let(:params) { FactoryGirl.attributes_for(:line) }
+  let(:line) { FactoryGirl.build_via_new(:line) }
 
   context 'sets all attributes' do
     subject { line }

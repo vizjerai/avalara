@@ -3,8 +3,8 @@
 require 'spec_helper'
 
 describe Avalara::Request::DetailLevel do
-  let(:params) { Factory.attributes_for(:detail_level) }
-  let(:detail_level) { Factory.build_via_new(:detail_level) }
+  let(:params) { FactoryGirl.attributes_for(:detail_level) }
+  let(:detail_level) { FactoryGirl.build_via_new(:detail_level) }
 
   context 'sets all attributes' do
     subject { detail_level }

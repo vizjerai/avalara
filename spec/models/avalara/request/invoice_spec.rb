@@ -3,8 +3,8 @@
 require 'spec_helper'
 
 describe Avalara::Request::Invoice do
-  let(:params) { Factory.attributes_for(:invoice) }
-  let(:invoice) { Factory.build_via_new(:invoice) }
+  let(:params) { FactoryGirl.attributes_for(:invoice) }
+  let(:invoice) { FactoryGirl.build_via_new(:invoice) }
 
   context 'sets all attributes' do
     subject { invoice }

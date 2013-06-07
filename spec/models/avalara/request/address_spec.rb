@@ -3,8 +3,8 @@
 require 'spec_helper'
 
 describe Avalara::Request::Address do
-  let(:params) { Factory.attributes_for(:address) }
-  let(:address) { Factory.build_via_new(:address) }
+  let(:params) { FactoryGirl.attributes_for(:address) }
+  let(:address) { FactoryGirl.build_via_new(:address) }
 
   context 'sets all attributes' do
     subject { address }

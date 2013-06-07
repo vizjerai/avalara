@@ -95,15 +95,15 @@ describe Avalara do
 
   describe '.get_tax' do
     let(:doc_date) { Date.parse("January 1, 2012") }
-    let(:invoice) { Factory.build_via_new(:invoice, doc_date: doc_date) }
+    let(:invoice) { FactoryGirl.build_via_new(:invoice, doc_date: doc_date) }
     let(:request) { Avalara.get_tax(invoice) }
     subject { request }
     
-    context 'failure' do
-      let(:invoice) { Factory.build_via_new(:invoice, customer_code: nil) }
+    context 'failure', :vcr do
+      let(:invoice) { FactoryGirl.build_via_new(:invoice, customer_code: nil) }
       use_vcr_cassette 'get_tax/failure'
 
-      it 'rasises an error' do
+      it 'raises an error' do
         expect { subject }.to raise_error(Avalara::ApiError)
       end
       
@@ -131,7 +131,7 @@ describe Avalara do
       end
     end
 
-    context 'success' do
+    context 'success', :vcr do
       use_vcr_cassette 'get_tax/success'
     
       it { should be_kind_of Avalara::Response::Invoice }
@@ -189,7 +189,7 @@ describe Avalara do
     end
   end
 
-  describe '.geographical_tax' do
+  describe '.geographical_tax', :vcr do
     let(:latitude) { '47.627935' }
     let(:longitude) { '-122.51702' }
     let(:sales_amount) { 100 }
