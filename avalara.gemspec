@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'multi_json', '~> 1.7'
 
   s.add_development_dependency 'vcr', '>= 2.0.0'
-  s.add_development_dependency 'webmock'
+  s.add_development_dependency 'webmock', '>= 1.9.1'
   s.add_development_dependency 'rspec', '>= 2.0.0'
   s.add_development_dependency 'factory_girl', '>= 4.0.0'
   s.add_development_dependency 'ruby-debug19'

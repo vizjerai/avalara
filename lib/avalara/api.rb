@@ -1,13 +1,11 @@
 # encoding: UTF-8
 require 'httparty'
-require 'avalara/parser'
 
 module Avalara
   class API
     include HTTParty
     headers 'Accept' => 'application/json', 'Content-Type' => 'text/json'
     format :json
-    parser Parser
 
     def self.headers_for(content_length = 0)
       {
