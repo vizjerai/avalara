@@ -1,0 +1,76 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://API_BASIC_AUTH@API_ENDPOINT/1.0/address/validate?Line1=435%20Ericksen%20Avenue%20Northeast&Line2=%23250&PostalCode=98110
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - text/json
+      Date:
+      - Tue, 11 Jun 2013 19:07:56 GMT
+      User-Agent:
+      - avalara/0.0.2 (Rubygems; Ruby 1.9.3 x86_64-freebsd8.1)
+      Content-Length:
+      - '0'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/json; charset=utf-8
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Tue, 11 Jun 2013 19:07:56 GMT
+      Content-Length:
+      - '297'
+      Set-Cookie:
+      - TS6198e2=636d7e08a1ba939e74f09679205034ff17aef1bec375cc4e51b7758d; Path=/
+      - TS6198e2_28=d504e6ad8384879a66c8f948ac046f1317aef1bec375cc4e00000000000000000051b7758c8a73661fdfaad314;
+        Path=/
+    body:
+      encoding: US-ASCII
+      string: ! '{
+
+        "ResultCode": "Success",
+
+        "Address": {
+
+        "Line1": "250",
+
+        "Line2": "435 Ericksen Ave NE",
+
+        "City": "Bainbridge Island",
+
+        "Region": "WA",
+
+        "PostalCode": "98110-1896",
+
+        "Country": "US",
+
+        "County": "Kitsap",
+
+        "FipsCode": "5303500000",
+
+        "CarrierRoute": "C051",
+
+        "PostNet": "981101896999",
+
+        "AddressType": "H"}
+
+        }
+
+'
+    http_version: 
+  recorded_at: Tue, 11 Jun 2013 19:07:57 GMT
+recorded_with: VCR 2.5.0

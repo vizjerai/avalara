@@ -27,7 +27,7 @@ module Avalara
       def addresses=(addresses)
         self.Addresses = []
         addresses.each do |address|
-          self.Addresses << Address.new(address)
+          self.Addresses << InvoiceAddress.new(address)
         end
       end
 

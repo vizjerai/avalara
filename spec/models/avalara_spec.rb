@@ -168,12 +168,12 @@ describe Avalara do
     end
   end
 
-  describe '.geographical_tax', :vcr do
+  describe '.geographical_tax' do
     let(:latitude) { '47.627935' }
     let(:sales_amount) { 100 }
     let(:request) { Avalara.geographical_tax(latitude, longitude, sales_amount) }
 
-    context 'success' do
+    context 'success', :vcr do
       let(:longitude) { '-122.51702' }
       use_vcr_cassette 'geographical_tax/success'
       it 'successful response' do
@@ -196,7 +196,7 @@ describe Avalara do
       end
     end
 
-    context 'failure' do
+    context 'failure', :vcr do
       let(:longitude) { '122.51702' }
       use_vcr_cassette 'geographical_tax/failure'
       it 'unsuccessful response' do
@@ -208,5 +208,62 @@ describe Avalara do
         expect(request.tax_details).to be_nil
       end
     end
+
+    context 'on timeout' do
+      let(:longitude) { '-122.51702' }
+      it 'raises an avalara timeout error' do
+        Avalara::API.should_receive(:get).and_raise(Timeout::Error)
+        expect { request }.to raise_error(Avalara::TimeoutError)
+      end
+    end
   end
+
+  describe '.validate_address' do
+    let(:address) { FactoryGirl.build_via_new(:address) }
+    let(:request) { Avalara.validate_address(address) }
+
+    context 'failure', :vcr do
+      let(:address) { FactoryGirl.build_via_new(:address, :postal_code => nil) }
+      use_vcr_cassette 'validate_address/failure'
+      it 'unsuccessful response' do
+        expect(request).to be_kind_of Avalara::Response::AddressValidation
+        expect(request).to_not be_success
+      end
+    end
+
+    context 'success', :vcr do
+      use_vcr_cassette 'validate_address/success'
+      it 'successful response' do
+        expect(request).to be_kind_of Avalara::Response::AddressValidation
+        expect(request).to be_success
+
+        expect(request.address).to be_a Avalara::Response::ValidationAddress
+
+        address = request.address
+        expect(address.line_1).to eq '250'
+        expect(address.line_2).to eq '435 Ericksen Ave NE'
+        expect(address.line_3).to be_nil
+        expect(address.city).to eq 'Bainbridge Island'
+        expect(address.region).to eq 'WA'
+        expect(address.country).to eq 'US'
+        expect(address.address_type).to eq 'H'
+        expect(address.address_type_name).to eq 'High-rise or business complex'
+        expect(address.postal_code).to eq '98110-1896'
+        expect(address.county).to eq 'Kitsap'
+        expect(address.fips_code).to eq '5303500000'
+        expect(address.carrier_route).to eq 'C051'
+        expect(address.carrier_route_name).to eq 'City delivery'
+        expect(address.tax_region_id).to be_nil
+        expect(address.post_net).to eq '981101896999'
+      end
+    end
+
+    context 'on timeout' do
+      it 'raises an avalara timeout error' do
+        Avalara::API.should_receive(:get).and_raise(Timeout::Error)
+        expect { request }.to raise_error(Avalara::TimeoutError)
+      end
+    end
+  end
+
 end

@@ -13,7 +13,7 @@ FactoryGirl.define do
     # doc_type "doc_type"
     # payment_date "payment_date"
     lines { [FactoryGirl.build_via_new(:line)] }
-    addresses { [FactoryGirl.build_via_new(:address)] }
+    addresses { [FactoryGirl.build_via_new(:invoice_address)] }
     # reference_code "reference_code"
   end
 end

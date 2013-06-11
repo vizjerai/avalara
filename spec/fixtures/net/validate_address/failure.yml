@@ -1,0 +1,68 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://API_BASIC_AUTH@API_ENDPOINT/1.0/address/validate?Line1=435%20Ericksen%20Avenue%20Northeast&Line2=%23250&PostalCode=
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - text/json
+      Date:
+      - Tue, 11 Jun 2013 19:07:54 GMT
+      User-Agent:
+      - avalara/0.0.2 (Rubygems; Ruby 1.9.3 x86_64-freebsd8.1)
+      Content-Length:
+      - '0'
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/json; charset=utf-8
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Tue, 11 Jun 2013 19:07:55 GMT
+      Content-Length:
+      - '253'
+      Set-Cookie:
+      - TS6198e2=927716e1d83dd5e3fa61af30db5ced304c62f84ba8d8a59b51b7758b; Path=/
+      - TS6198e2_28=22ec2375be97493e8f7a884bc8271dc54c62f84ba8d8a59b00000000000000000051b7758b2814d6a370a5270d;
+        Path=/
+    body:
+      encoding: US-ASCII
+      string: ! '{
+
+        "ResultCode": "Error",
+
+        "Messages": [
+
+        {
+
+        "Summary": "Insufficient address information",
+
+        "Details": "You must specify at least Line/ZIP, or Line/City/State",
+
+        "RefersTo": "PostalCode",
+
+        "Severity": "Error",
+
+        "Source": "Avalara.AvaTax.Services.Address"}
+
+        ]
+
+        }
+
+'
+    http_version: 
+  recorded_at: Tue, 11 Jun 2013 19:07:56 GMT
+recorded_with: VCR 2.5.0

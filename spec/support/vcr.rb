@@ -7,7 +7,7 @@ VCR.configure do |config|
   end
 
   config.cassette_library_dir = File.expand_path('../../fixtures/net', __FILE__)
-  config.default_cassette_options = { :record => :none }
+  config.default_cassette_options = { :record => :once }
   config.hook_into :webmock
 
   config.filter_sensitive_data('API_BASIC_AUTH') {

@@ -100,6 +100,18 @@ module Avalara
     raise Error.new(e)
   end
 
+  def self.validate_address(address)
+    uri = [endpoint, version, 'address', 'validate'].join('/')
+    response = API.get(uri,
+      :headers => API.headers_for(),
+      :query => address.to_hash,
+      :basic_auth => authorization
+    )
+    Response::AddressValidation.new(response)
+  rescue Timeout::Error => e
+    raise TimeoutError.new(e)
+  end
+
   private
 
   def self.authorization
