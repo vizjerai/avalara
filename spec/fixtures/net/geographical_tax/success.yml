@@ -12,7 +12,7 @@ http_interactions:
       Content-Type:
       - text/json
       Date:
-      - Tue, 11 Jun 2013 16:09:54 GMT
+      - Tue, 11 Jun 2013 20:06:02 GMT
       User-Agent:
       - avalara/0.0.2 (Rubygems; Ruby 1.9.3 x86_64-freebsd8.1)
       Content-Length:
@@ -31,66 +31,62 @@ http_interactions:
       X-Powered-By:
       - ASP.NET
       Date:
-      - Tue, 11 Jun 2013 16:09:55 GMT
+      - Tue, 11 Jun 2013 20:06:03 GMT
       Content-Length:
-      - '185'
+      - '356'
       Set-Cookie:
-      - TS6198e2=fec131e4f7933187b76d31713bea7bd1559e0844fd8e1fc251b74bd3; Path=/
-      - TS6198e2_28=7d0862874ec80d56087414307f1f9e87559e0844fd8e1fc200000000000000000051b74bd2324fe59cc45ca034;
+      - TS6198e2=f269f6ec01f43005c796a696d743adbab44110d473ce2a0751b7832b; Path=/
+      - TS6198e2_28=7dc6acf5dae9dc5790ffe92f50b06bc0b44110d473ce2a0700000000000000000051b7832b91f2ed2d3b9cab78;
         Path=/
     body:
       encoding: US-ASCII
       string: ! '{
 
-        "ResultCode": "Success",
-
         "Rate": 0.086,
 
-        "Tax": 0.86,
+        "Tax": 8.6,
 
         "TaxDetails": [
 
         {
 
-        "Rate": 0.065,
-
-        "Tax": 0.65,
+        "Country": "US",
 
         "Region": "WA",
-
-        "Country": "US",
 
         "JurisType": "State",
 
+        "Rate": 0.065,
+
+        "Tax": 6.5,
+
         "JurisName": "WASHINGTON",
 
-        "TaxName": "WA STATE TAX"
+        "TaxName": "WA STATE TAX"}
 
-        },
-
-        {
-
-        "Rate": 0.021,
-
-        "Tax": 0.21,
-
-        "Region": "WA",
+        ,{
 
         "Country": "US",
 
+        "Region": "WA",
+
         "JurisType": "City",
+
+        "Rate": 0.021,
+
+        "Tax": 2.1,
 
         "JurisName": "BAINBRIDGE ISLAND",
 
-        "TaxName": "WA CITY TAX"
-
-        }
+        "TaxName": "WA CITY TAX"}
 
         ]
 
-        }
+        ,
+
+        "ResultCode": "Success"}
 
 '
     http_version: 
-  recorded_at: Tue, 11 Jun 2013 16:09:55 GMT
+  recorded_at: Tue, 11 Jun 2013 20:06:05 GMT
 recorded_with: VCR 2.5.0

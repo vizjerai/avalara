@@ -181,17 +181,17 @@ describe Avalara do
         expect(request).to be_success
 
         expect(request.rate).to eq 0.086
-        expect(request.tax).to eq 0.86
+        expect(request.tax).to eq 8.6
         expect(request.tax_details).to have(2).items
 
         state_tax_detail = request.tax_details.first
         expect(state_tax_detail.rate).to eq 0.065
-        expect(state_tax_detail.tax).to eq 0.65
+        expect(state_tax_detail.tax).to eq 6.5
         expect(state_tax_detail.juris_type).to eq 'State'
 
         city_tax_detail = request.tax_details.last
         expect(city_tax_detail.rate).to eq 0.021
-        expect(city_tax_detail.tax).to eq 0.21
+        expect(city_tax_detail.tax).to eq 2.1
         expect(city_tax_detail.juris_type).to eq 'City'
       end
     end

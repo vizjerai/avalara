@@ -12,7 +12,7 @@ http_interactions:
       Content-Type:
       - text/json
       Date:
-      - Tue, 11 Jun 2013 16:09:54 GMT
+      - Tue, 11 Jun 2013 20:06:05 GMT
       User-Agent:
       - avalara/0.0.2 (Rubygems; Ruby 1.9.3 x86_64-freebsd8.1)
       Content-Length:
@@ -31,12 +31,12 @@ http_interactions:
       X-Powered-By:
       - ASP.NET
       Date:
-      - Tue, 11 Jun 2013 16:09:55 GMT
+      - Tue, 11 Jun 2013 20:06:05 GMT
       Content-Length:
-      - '185'
+      - '199'
       Set-Cookie:
-      - TS6198e2=fec131e4f7933187b76d31713bea7bd1559e0844fd8e1fc251b74bd3; Path=/
-      - TS6198e2_28=7d0862874ec80d56087414307f1f9e87559e0844fd8e1fc200000000000000000051b74bd2324fe59cc45ca034;
+      - TS6198e2=0fbc977705f174841c183156e45d6384a9fcff46f066e83251b7832e; Path=/
+      - TS6198e2_28=c97054c1ff46a2126a0bf4f1be5e95bda9fcff46f066e83200000000000000000051b7832d85aedc9eb7336aa4;
         Path=/
     body:
       encoding: US-ASCII
@@ -48,11 +48,9 @@ http_interactions:
 
         {
 
-        "Summary": "Access denied.",
+        "Summary": "Geocoding error Address is incomplete or invalid.",
 
-        "Details": "Company",
-
-        "RefersTo": "CompanyCode",
+        "RefersTo": "Addresses[0]",
 
         "Severity": "Error",
 
@@ -64,5 +62,5 @@ http_interactions:
 
 '
     http_version: 
-  recorded_at: Tue, 11 Jun 2013 16:09:55 GMT
+  recorded_at: Tue, 11 Jun 2013 20:06:06 GMT
 recorded_with: VCR 2.5.0
