@@ -15,11 +15,7 @@ module Avalara
       property :exemption,      :from => :Exemption
 
       def TaxDetails=(tax_details)
-        self.tax_details = []
-        
-        tax_details.each do |tax_detail|
-          self.tax_details << TaxDetail.new(tax_detail)
-        end
+        self.tax_details = tax_details.map {|tax_detail| TaxDetail.new(tax_detail)}
       end
     end
   end

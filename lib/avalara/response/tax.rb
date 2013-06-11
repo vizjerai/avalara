@@ -13,14 +13,11 @@ module Avalara
       end
 
       def Messages=(new_messages)
-        self.messages = []
-        new_messages.each do |message|
-          self.messages << Message.new(message)
-        end
+        self.messages = new_messages.map {|message| Message.new(message)}
       end
 
       def TaxDetails=(details)
-        self.tax_details = details.map { |d| Avalara::Response::TaxDetail.new(d) }
+        self.tax_details = details.map {|tax_detail| TaxDetail.new(tax_detail)}
       end
     end
   end

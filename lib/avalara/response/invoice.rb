@@ -21,28 +21,18 @@ module Avalara
       def success?
         result_code == 'Success'
       end
-      
+
       def Messages=(new_messages)
-        self.messages = []
-        new_messages.each do |message|
-          self.messages << Message.new(message)
-        end
+        self.messages = new_messages.map {|message| Message.new(message)}
       end
-    
+
       def TaxLines=(lines)
-        self.tax_lines = []
-        lines.each do |line|
-          self.tax_lines << TaxLine.new(line)
-        end
+        self.tax_lines = lines.map {|line| TaxLine.new(line)}
       end
-      
+
       def TaxAddresses=(addresses)
-        self.tax_addresses = []
-        addresses.each do |address|
-          self.tax_addresses << TaxAddress.new(address)
-        end
+        self.tax_addresses = addresses.map {|address| TaxAddress.new(address)}
       end
-      
     end
   end
 end

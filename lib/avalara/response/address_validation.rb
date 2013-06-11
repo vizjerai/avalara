@@ -17,12 +17,8 @@ module Avalara
       end
 
       def Messages=(new_messages)
-        self.messages = []
-        new_messages.each do |message|
-          self.messages << Message.new(message)
-        end
+        self.messages = new_messages.map {|message| Message.new(message)}
       end
-
     end
   end
 end

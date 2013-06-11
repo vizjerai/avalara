@@ -26,7 +26,7 @@ module Avalara
   def self.configure(&block)
     configuration(&block)
   end
-  
+
   def self.endpoint
     configuration.endpoint
   end
@@ -56,13 +56,7 @@ module Avalara
   end
 
   def self.geographical_tax(latitude, longitude, sales_amount)
-    uri = [
-      endpoint,
-      version,
-      "tax", 
-      "#{latitude},#{longitude}",
-      "get"
-    ].join("/")
+    uri = [endpoint, version, 'tax', "#{latitude},#{longitude}", 'get'].join('/')
 
     response = API.get(uri, 
       :headers    => API.headers_for(),
@@ -84,14 +78,7 @@ module Avalara
       :basic_auth => authorization
     )
 
-    return case response.code
-      when 200..299
-        Response::Invoice.new(response)
-      when 400..599
-        Response::Invoice.new(response)
-      else
-        raise ApiError.new(response)
-    end
+    Response::Invoice.new(response)
   rescue Timeout::Error => e
     raise TimeoutError.new(e)
   rescue ApiError => e
