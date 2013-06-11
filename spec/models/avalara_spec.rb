@@ -97,108 +97,116 @@ describe Avalara do
     let(:doc_date) { Date.parse("January 1, 2012") }
     let(:invoice) { FactoryGirl.build_via_new(:invoice, doc_date: doc_date) }
     let(:request) { Avalara.get_tax(invoice) }
-    subject { request }
-    
+
     context 'failure', :vcr do
       let(:invoice) { FactoryGirl.build_via_new(:invoice, customer_code: nil) }
       use_vcr_cassette 'get_tax/failure'
 
-      it 'raises an error' do
-        expect { subject }.to raise_error(Avalara::ApiError)
-      end
-      
-      context 'the returned error' do
-        subject do
-          begin
-            request
-          rescue Avalara::ApiError => e
-            e.message.messages.first
-          end
-        end
-        
-        its(:details) { should == "This value must be specified." }
-        its(:refers_to) { should == "CustomerCode" }
-        its(:severity) { should == "Error" }
-        its(:source) { should == "Avalara.AvaTax.Services" }
-        its(:summary) { should == "CustomerCode is required." }
+      it 'unsuccessful response' do
+        expect(request).to be_kind_of Avalara::Response::Invoice
+        expect(request).to_not be_success
+
+        message = request.messages.first
+        expect(message.details).to eq "This value must be specified."
+        expect(message.refers_to).to eq "CustomerCode"
+        expect(message.severity).to eq "Error"
+        expect(message.source).to eq "Avalara.AvaTax.Services"
+        expect(message.summary).to eq "CustomerCode is required."
       end
     end
-    
+
     context 'on timeout' do
       it 'raises an avalara timeout error' do
         Avalara::API.should_receive(:post).and_raise(Timeout::Error)
-        expect { subject }.to raise_error(Avalara::TimeoutError)
+        expect { request }.to raise_error(Avalara::TimeoutError)
       end
     end
 
     context 'success', :vcr do
       use_vcr_cassette 'get_tax/success'
-    
-      it { should be_kind_of Avalara::Response::Invoice }
-    
-      its(:doc_code) { should_not be_nil }
-      its(:doc_date) { should == "2012-01-01" }
-      its(:result_code) { should == "Success" }
-      its(:tax_date) { should_not be_nil }
-      its(:timestamp) { should_not be_nil }
-      its(:total_amount) { should == "10" }
-      its(:total_discount) { should == "0" }
-      its(:total_exemption) { should == "10" }
-      its(:total_tax) { should == "0" }
-      its(:total_tax_calculated) { should == "0" }
-    
-      it 'returns 1 tax line' do
-        subject.tax_lines.length.should == 1
-      end
 
-      it 'returns 1 tax address' do
-        subject.tax_addresses.length.should == 1
-      end
-    
-      context 'the returned tax line' do
-        let(:tax_line) { request.tax_lines.first }
-        subject { tax_line }
-      
-        its(:line_no) { should == "1" }
-        its(:tax_code) { should == "P0000000" }
-        its(:taxability) { should == "true" }
-        its(:taxable) { should == "0" }
-        its(:rate) { should == "0" }
-        its(:tax) { should == "0" }
-        its(:discount) { should == "0" }
-        its(:tax_calculated) { should == "0" }
-        its(:exemption) { should == "10" }
-      
-        it 'returns 1 tax detail' do
-          subject.tax_details.length.should == 1
-        end
-      
-        context 'the returned tax detail' do
-          subject { tax_line.tax_details.first }
+      it 'successful response' do
+        expect(request).to be_kind_of Avalara::Response::Invoice
+        expect(request).to be_success
 
-          its(:taxable) { should == "0" }
-          its(:rate) { should == "0" }
-          its(:tax) { should == "0" }
-          its(:region) { should == "WA" }
-          its(:country) { should == "US" }
-          its(:juris_type) { should == "State" }
-          its(:juris_name) { should == "WASHINGTON" }
-          its(:tax_name) { should == "WA STATE TAX" }
-        end
+        expect(request.doc_code).to_not be_nil
+        expect(request.doc_date).to eq "2012-01-01"
+        expect(request.result_code).to eq "Success"
+        expect(request.tax_date).to_not be_nil
+        expect(request.timestamp).to_not be_nil
+        expect(request.total_amount).to eq "10"
+        expect(request.total_discount).to eq "0"
+        expect(request.total_exemption).to eq "10"
+        expect(request.total_tax).to eq "0"
+        expect(request.total_tax_calculated).to eq "0"
+
+        expect(request.tax_lines.length).to be 1
+        tax_line = request.tax_lines.first
+        expect(tax_line.line_no).to eq "1"
+        expect(tax_line.tax_code).to eq "P0000000"
+        expect(tax_line.taxability).to eq "true"
+        expect(tax_line.taxable).to eq "0"
+        expect(tax_line.rate).to eq "0"
+        expect(tax_line.tax).to eq "0"
+        expect(tax_line.discount).to eq "0"
+        expect(tax_line.tax_calculated).to eq "0"
+        expect(tax_line.exemption).to eq "10"
+        expect(tax_line.tax_details.length).to be 1
+
+        tax_detail = tax_line.tax_details.first
+        expect(tax_detail.taxable).to eq "0"
+        expect(tax_detail.rate).to eq "0"
+        expect(tax_detail.tax).to eq "0"
+        expect(tax_detail.region).to eq "WA"
+        expect(tax_detail.country).to eq "US"
+        expect(tax_detail.juris_type).to eq "State"
+        expect(tax_detail.juris_name).to eq "WASHINGTON"
+        expect(tax_detail.tax_name).to eq "WA STATE TAX"
+
+        expect(request.tax_addresses.length).to be 1
       end
     end
   end
 
   describe '.geographical_tax', :vcr do
     let(:latitude) { '47.627935' }
-    let(:longitude) { '-122.51702' }
     let(:sales_amount) { 100 }
+    let(:request) { Avalara.geographical_tax(latitude, longitude, sales_amount) }
 
-    subject { Avalara.geographical_tax(latitude, longitude, sales_amount) }
-    use_vcr_cassette 'geographical_tax_no_sales'
-  
-    it "returns a rate of 0" do
-      expect { subject }.to raise_error(Avalara::NotImplementedError)
+    context 'success' do
+      let(:longitude) { '-122.51702' }
+      use_vcr_cassette 'geographical_tax/success'
+      it 'successful response' do
+        expect(request).to be_kind_of Avalara::Response::Tax
+        expect(request).to be_success
+
+        expect(request.rate).to eq 0.086
+        expect(request.tax).to eq 0.86
+        expect(request.tax_details).to have(2).items
+
+        state_tax_detail = request.tax_details.first
+        expect(state_tax_detail.rate).to eq 0.065
+        expect(state_tax_detail.tax).to eq 0.65
+        expect(state_tax_detail.juris_type).to eq 'State'
+
+        city_tax_detail = request.tax_details.last
+        expect(city_tax_detail.rate).to eq 0.021
+        expect(city_tax_detail.tax).to eq 0.21
+        expect(city_tax_detail.juris_type).to eq 'City'
+      end
+    end
+
+    context 'failure' do
+      let(:longitude) { '122.51702' }
+      use_vcr_cassette 'geographical_tax/failure'
+      it 'unsuccessful response' do
+        expect(request).to be_kind_of Avalara::Response::Tax
+        expect(request).to_not be_success
+
+        expect(request.rate).to be_nil
+        expect(request.tax).to be_nil
+        expect(request.tax_details).to be_nil
+      end
     end
   end
 end

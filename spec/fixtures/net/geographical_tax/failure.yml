@@ -1,0 +1,68 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://API_BASIC_AUTH@API_ENDPOINT/1.0/tax/47.627935,122.51702/get?saleamount=100
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - text/json
+      Date:
+      - Tue, 11 Jun 2013 16:09:54 GMT
+      User-Agent:
+      - avalara/0.0.2 (Rubygems; Ruby 1.9.3 x86_64-freebsd8.1)
+      Content-Length:
+      - '0'
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/json; charset=utf-8
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Tue, 11 Jun 2013 16:09:55 GMT
+      Content-Length:
+      - '185'
+      Set-Cookie:
+      - TS6198e2=fec131e4f7933187b76d31713bea7bd1559e0844fd8e1fc251b74bd3; Path=/
+      - TS6198e2_28=7d0862874ec80d56087414307f1f9e87559e0844fd8e1fc200000000000000000051b74bd2324fe59cc45ca034;
+        Path=/
+    body:
+      encoding: US-ASCII
+      string: ! '{
+
+        "ResultCode": "Error",
+
+        "Messages": [
+
+        {
+
+        "Summary": "Access denied.",
+
+        "Details": "Company",
+
+        "RefersTo": "CompanyCode",
+
+        "Severity": "Error",
+
+        "Source": "Avalara.AvaTax.Services.Tax"}
+
+        ]
+
+        }
+
+'
+    http_version: 
+  recorded_at: Tue, 11 Jun 2013 16:09:55 GMT
+recorded_with: VCR 2.5.0

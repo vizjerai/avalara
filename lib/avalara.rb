@@ -70,7 +70,7 @@ module Avalara
       :basic_auth => authorization
     )
 
-    Avalara::Response::Tax.new(response)
+    Response::Tax.new(response)
   rescue Timeout::Error => e
     raise TimeoutError.new(e)
   end
@@ -88,7 +88,7 @@ module Avalara
       when 200..299
         Response::Invoice.new(response)
       when 400..599
-        raise ApiError.new(Response::Invoice.new(response))
+        Response::Invoice.new(response)
       else
         raise ApiError.new(response)
     end
