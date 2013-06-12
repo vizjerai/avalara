@@ -11,6 +11,9 @@ module Avalara
       property :CustomerUsageType, :from => :customer_usage_type
       property :Description,       :from => :description
       property :Qty,               :from => :qty,                 :required => true
+
+      # Amount: (decimal)
+      # - in dollars as a decimal. AvaTax will round to 2 decimal places
       property :Amount,            :from => :amount,              :required => true
       property :Discounted,        :from => :discounted
       property :TaxIncluded,       :from => :tax_included

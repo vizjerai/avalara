@@ -24,6 +24,7 @@ module Avalara
       property :Addresses,         :from => :addresses
       property :ReferenceCode,     :from => :reference_code
 
+      # Shipping Addresses
       def addresses=(addresses)
         self.Addresses = addresses.map {|address| InvoiceAddress.new(address)}
       end
