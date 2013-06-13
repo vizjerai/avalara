@@ -1,4 +1,4 @@
-## 0.0.3 - Unreleased
+## 0.1.0 - June 13, 2013
 - Updated tests and gems
 - Added missing specs for geographical_tax
 - Added validate address
