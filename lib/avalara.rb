@@ -55,6 +55,20 @@ module Avalara
     configuration.version = version
   end
 
+  def self.cancel_tax(cancel_invoice)
+    uri = [endpoint, version, 'tax', 'cancel'].join('/')
+
+    response = API.post(uri,
+      :body       => cancel_invoice.to_json,
+      :headers    => API.headers_for(cancel_invoice.to_json.length),
+      :basic_auth => authorization
+    )
+
+    Response::CancelTax.new(response)
+  rescue Timeout::Error => e
+    raise TimeoutError.new(e)
+  end
+
   def self.geographical_tax(latitude, longitude, sales_amount)
     uri = [endpoint, version, 'tax', "#{latitude},#{longitude}", 'get'].join('/')
 

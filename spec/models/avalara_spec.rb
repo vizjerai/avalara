@@ -93,9 +93,51 @@ describe Avalara do
     end
   end
 
+  describe '.cancel_tax' do
+    let(:cancel_tax) { FactoryGirl.build_via_new(:cancel_tax) }
+    let(:request) { Avalara.cancel_tax(cancel_tax) }
+
+    it 'successful response', :vcr do
+      expect(request).to be_a Avalara::Response::CancelTax
+      expect(request).to be_success
+
+      expect(request.transaction_id).to be 431361022
+      expect(request.doc_id).to eq '34279849'
+      expect(request.result_code).to eq 'Success'
+      expect(request.messages).to be_nil
+    end
+
+    context 'with missing doc code', :vcr do
+      let(:cancel_tax) { FactoryGirl.build_via_new(:cancel_tax, :doc_code => nil) }
+      it 'unsuccessful response' do
+        expect(request).to be_a Avalara::Response::CancelTax
+        expect(request).to_not be_success
+
+        expect(request.transaction_id).to be 431377420
+        expect(request.doc_id).to be_nil
+        expect(request.result_code).to eq 'Error'
+        expect(request).to have(1).message
+
+        message = request.messages.first
+        expect(message.details).to eq "This value must be specified."
+        expect(message.refers_to).to eq "DocCode"
+        expect(message.severity).to eq "Error"
+        expect(message.source).to eq "Avalara.AvaTax.Services"
+        expect(message.summary).to eq "DocCode is required."
+      end
+    end
+
+    context 'on timeout' do
+      it 'raises an avalara timeout error' do
+        Avalara::API.should_receive(:post).and_raise(Timeout::Error)
+        expect { request }.to raise_error(Avalara::TimeoutError)
+      end
+    end
+  end
+
   describe '.get_tax' do
     let(:doc_date) { Date.parse("January 1, 2012") }
-    let(:invoice) { FactoryGirl.build_via_new(:invoice, doc_date: doc_date) }
+    let(:invoice) { FactoryGirl.build_via_new(:invoice, :doc_date => doc_date) }
     let(:request) { Avalara.get_tax(invoice) }
 
     it 'successful response', :vcr do
@@ -112,8 +154,8 @@ describe Avalara do
       expect(request.total_exemption).to eq "10"
       expect(request.total_tax).to eq "0"
       expect(request.total_tax_calculated).to eq "0"
-
       expect(request.tax_lines.length).to be 1
+
       tax_line = request.tax_lines.first
       expect(tax_line.line_no).to eq "1"
       expect(tax_line.tax_code).to eq "P0000000"

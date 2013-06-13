@@ -6,8 +6,8 @@ FactoryGirl.define do
     # item_code "item_code"
     # tax_code "tax_code"
     # customer_usage_type "customer_usage_type"
-    qty "1"
-    amount 10
+    qty 1
+    amount 10.00
     # discounted "discounted"
     # tax_included "tax_included"
     # ref_1 "ref_1"
