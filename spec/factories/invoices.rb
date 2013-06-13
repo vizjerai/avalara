@@ -11,7 +11,6 @@ FactoryGirl.define do
     # exemption_no "exemption_no"
     # detail_level 'Tax'
     # doc_type "SalesInvoice"
-    # payment_date Time.now
     lines { [FactoryGirl.build_via_new(:line)] }
     addresses { [FactoryGirl.build_via_new(:invoice_address)] }
     # reference_code "reference_code"

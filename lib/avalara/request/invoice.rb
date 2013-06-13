@@ -19,7 +19,6 @@ module Avalara
       property :ExemptionNo,       :from => :exemption_no
       property :DetailLevel,       :from => :detail_level
       property :DocType,           :from => :doc_type
-      property :PaymentDate,       :from => :payment_date
       property :Lines,             :from => :lines
       property :Addresses,         :from => :addresses
       property :ReferenceCode,     :from => :reference_code

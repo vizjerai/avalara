@@ -20,12 +20,11 @@ describe Avalara::Request::Invoice do
     its(:ExemptionNo) { should == params[:exemption_no] }
     its(:DetailLevel) { should == params[:detail_level] }
     its(:DocType) { should == params[:doc_type] }
-    its(:PaymentDate) { should == params[:payment_date] }
     its(:Lines) { should == params[:lines] }
     its(:Addresses) { should == params[:addresses] }
     its(:ReferenceCode) { should == params[:reference_code] }
   end
-  
+
   context 'converts nested objects to json' do
     subject { invoice.to_json }
     it { should_not be_nil }
