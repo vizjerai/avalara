@@ -1,4 +1,9 @@
+## 0.2.0 - June 14, 2013
+
+- Added test to configuration for better usability. Specifying an endpoint will override this setting.
+
 ## 0.1.0 - June 13, 2013
+
 - Updated tests and gems
 - Added missing specs for geographical_tax
 - Added validate address
