@@ -7,17 +7,26 @@ class Avalara::Configuration
   attr_accessor :username
   attr_writer :version
 
-  ##
-  # Public: Get the API endpoint used by the configuration.  Unless explicitly
-  # set, the endpoint will default to the official production endpoint at
-  # 'https://rest.avalara.net'.
+  # Public: Changes the default endpoint between production and test.
+  # Default: nil
   #
-  # If you want to set this to the test endpoint, use 'https://development.avalara.net' 
+  # set to true to change the default to the test endpoint at 'https://development.avalara.net'
+  # set to false or leave default to use the production endpoint at 'https://rest.avalara.net'
+  #
+  # Returns nil or the value of test
+  #
+  attr_accessor :test
+
+  ##
+  # Public: Get the API endpoint used by the configuration.
+  #
+  # If the default endpoints are not needed the endpoint can be overridden with another one.
   #
   # Returns the String for the API endpoint.
   #
   def endpoint
-    @endpoint ||= 'https://rest.avalara.net'
+    return @endpoint if @endpoint
+    test ? 'https://development.avalara.net' : 'https://rest.avalara.net'
   end
 
   ##

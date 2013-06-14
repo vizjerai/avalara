@@ -7,7 +7,7 @@ describe Avalara::Configuration do
 
   context '#endpoint' do
     it 'defaults to https://rest.avalara.net' do
-      configuration.endpoint.should == 'https://rest.avalara.net'
+      expect(configuration.endpoint).to eq 'https://rest.avalara.net'
     end
 
     it 'may be overridden' do
@@ -15,8 +15,38 @@ describe Avalara::Configuration do
         configuration.endpoint = 'https://example.local/'
       }.to change(configuration, :endpoint).to('https://example.local/')
     end
+
+    context 'with test == true' do
+      it 'defaults to https://development.avalara.net' do
+        expect {
+          configuration.test = true
+        }.to change(configuration, :endpoint).to 'https://development.avalara.net'
+      end
+
+      it 'can be overridden' do
+        expect {
+          configuration.test = true
+          configuration.endpoint = 'https://example.local/'
+        }.to change(configuration, :endpoint).to('https://example.local/')
+      end
+    end
+
+    context 'with test == false' do
+      it 'defaults to https://rest.avalara.net' do
+        expect {
+          configuration.test = false
+        }.to_not change(configuration, :endpoint)
+      end
+
+      it 'can be overridden' do
+        expect {
+          configuration.test = false
+          configuration.endpoint = 'https://example.local/'
+        }.to change(configuration, :endpoint).to('https://example.local/')
+      end
+    end
   end
-  
+
   context '#version' do
     it 'defaults to 1.0' do
       configuration.version.should == '1.0'
