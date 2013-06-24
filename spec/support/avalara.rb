@@ -8,10 +8,14 @@ if path.exist?
   begin
     AVALARA_CONFIGURATION = YAML.load_file(path)
     Avalara.configure do |config|
-      config.username = AVALARA_CONFIGURATION['username'] || abort("Avalara configuration file (#{path}) is missing the username value.")
-      config.password = AVALARA_CONFIGURATION['password'] || abort("Avalara configuration file (#{path}) is missing the password value.")
-      config.version = AVALARA_CONFIGURATION['version'] if AVALARA_CONFIGURATION.has_key?('version')
-      config.endpoint = AVALARA_CONFIGURATION['endpoint'] if AVALARA_CONFIGURATION.has_key?('endpoint')
+      ['username','password'].each do |attr|
+        config.send("#{attr}=", AVALARA_CONFIGURATION[attr])
+        abort("Avalara configuration file (#{path}) is missing the #{attr} value.") if config.send(attr).nil?
+      end
+
+      ['version','endpoint','company_code'].each do |attr|
+        config.send("#{attr}=", AVALARA_CONFIGURATION[attr]) if AVALARA_CONFIGURATION[attr]
+      end
     end
   rescue NoMethodError
     abort "Avalara configuration file (#{path}) is malformatted or unreadable."

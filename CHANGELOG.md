@@ -1,8 +1,9 @@
-## 0.0.3 - Unreleased
+## Unreleased
 - Updated tests and gems
 - Added missing specs for geographical_tax
 - Added validate address
 - Added cancel tax
+- Added company_code to Avalara::Configuration to be used as a default for request invoice and request cancel_tax
 
 ## 0.0.2 - May 7, 2012 - Updated tests for test endpoint.
 

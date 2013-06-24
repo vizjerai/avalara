@@ -7,6 +7,11 @@ class Avalara::Configuration
   attr_accessor :username
   attr_writer :version
 
+  # Public: Sets the default company code to be sent if one is not supplied
+  # Default: nil
+  #
+  attr_accessor :company_code
+
   # Public: Changes the default endpoint between production and test.
   # Default: nil
   #

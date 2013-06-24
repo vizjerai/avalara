@@ -5,6 +5,18 @@ require 'spec_helper'
 describe Avalara::Configuration do
   let(:configuration) { Avalara::Configuration.new }
 
+  context '#company_code' do
+    it 'defaults to nil' do
+      expect(configuration.company_code).to be_nil
+    end
+
+    it 'may be overridden' do
+      expect {
+        configuration.company_code = 'TEST'
+      }.to change(configuration, :company_code).to('TEST')
+    end
+  end
+
   context '#endpoint' do
     it 'defaults to https://rest.avalara.net' do
       expect(configuration.endpoint).to eq 'https://rest.avalara.net'
