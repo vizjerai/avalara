@@ -12,7 +12,7 @@ VCR.configure do |config|
   config.configure_rspec_metadata!
 
   config.filter_sensitive_data('API_BASIC_AUTH') {
-    "#{uri_encode(AVALARA_CONFIGURATION['username'])}:#{uri_encode(AVALARA_CONFIGURATION['password'])}"
+    "#{uri_encode(Avalara.username)}:#{uri_encode(Avalara.password)}"
   }
-  config.filter_sensitive_data('API_ENDPOINT') { URI.parse(AVALARA_CONFIGURATION['endpoint']).host }
+  config.filter_sensitive_data('API_ENDPOINT') { URI.parse(Avalara.endpoint).host }
 end

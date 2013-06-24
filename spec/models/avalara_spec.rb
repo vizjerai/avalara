@@ -42,6 +42,17 @@ describe Avalara do
     end
   end
 
+  describe '.company_code' do
+    it 'returns the configuration company code' do
+      expect(Avalara.company_code).to eq configuration.company_code
+    end
+
+    it 'overrides the configuration company code' do
+      Avalara.company_code = 'TEST'
+      expect(Avalara.configuration.company_code).to eq 'TEST'
+    end
+  end
+
   describe '.endpoint' do
     it 'returns the configuration endpoint' do
       Avalara.endpoint.should == configuration.endpoint

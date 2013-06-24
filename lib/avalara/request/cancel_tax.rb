@@ -10,6 +10,12 @@ module Avalara
       property :CancelCode,  :from => :cancel_code
       property :DocId,       :from => :doc_id
 
+      # CompanyCode defaults to Avalara's configuration.company_code
+      def initialize(*args)
+        self.CompanyCode = Avalara.configuration.company_code if Avalara.configuration.company_code
+        super
+      end
+
       def to_json
         MultiJson.encode(self.to_hash, :pretty => true)
       end

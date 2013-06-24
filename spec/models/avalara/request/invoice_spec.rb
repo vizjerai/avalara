@@ -25,6 +25,38 @@ describe Avalara::Request::Invoice do
     its(:ReferenceCode) { should == params[:reference_code] }
   end
 
+  describe '#CompanyCode' do
+    let(:invoice) { Avalara::Request::Invoice.new }
+
+    it 'returns nil' do
+      expect(invoice.CompanyCode).to eq Avalara.company_code
+    end
+
+    context 'with invoice company code' do
+      let(:invoice) { Avalara::Request::Invoice.new :company_code => 'InvoiceInvoiceCode' }
+
+      it 'returns invoice company code' do
+        expect(invoice.CompanyCode).to eq 'InvoiceInvoiceCode'
+      end
+    end
+
+    context 'with configuration company code' do
+      let(:invoice) { Avalara::Request::Invoice.new }
+      before { Avalara.configuration.company_code = 'TEST' }
+
+      it 'returns configuration company code' do
+        expect(invoice.CompanyCode).to eq 'TEST'
+      end
+
+      context 'with invoice company code' do
+        let(:invoice) { Avalara::Request::Invoice.new :company_code => 'InvoiceInvoiceCode' }
+        it 'allow overriding configuration company code' do
+          expect(invoice.CompanyCode).to eq 'InvoiceInvoiceCode'
+        end
+      end
+    end
+  end
+
   context 'converts nested objects to json' do
     subject { invoice.to_json }
     it { should_not be_nil }

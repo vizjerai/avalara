@@ -23,6 +23,12 @@ module Avalara
       property :Addresses,         :from => :addresses
       property :ReferenceCode,     :from => :reference_code
 
+      # CompanyCode defaults to Avalara's configuration.company_code
+      def initialize(*args)
+        self.CompanyCode = Avalara.configuration.company_code if Avalara.configuration.company_code
+        super
+      end
+
       # Shipping Addresses
       def addresses=(addresses)
         self.Addresses = addresses.map {|address| InvoiceAddress.new(address)}

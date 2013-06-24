@@ -27,6 +27,13 @@ module Avalara
     configuration(&block)
   end
 
+  def self.company_code
+    configuration.company_code
+  end
+  def self.company_code=(value)
+    configuration.company_code = value
+  end
+
   def self.endpoint
     configuration.endpoint
   end

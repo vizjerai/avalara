@@ -1,3 +1,7 @@
+## Unreleased
+
+- Added company_code to Avalara::Configuration to be used as a default for request invoice and request cancel_tax
+
 ## 0.2.0 - June 14, 2013
 
 - Added test to configuration for better usability. Specifying an endpoint will override this setting.
