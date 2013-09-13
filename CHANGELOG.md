@@ -1,4 +1,5 @@
 ## Unreleased
+- Updated default production url from https://reset.avalara.net to https://avatax.avalara.net
 - Updated tests and gems
 - Added missing specs for geographical_tax
 - Added validate address
