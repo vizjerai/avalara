@@ -1,4 +1,4 @@
-## Unreleased
+## 0.3.1 - September 13, 2013
 
 - Updated default production url from https://reset.avalara.net to https://avatax.avalara.net
 
