@@ -1,3 +1,7 @@
+## Unreleased
+
+- Updated default production url from https://reset.avalara.net to https://avatax.avalara.net
+
 ## 0.3.0 - June 24, 2013
 
 - Added company_code to Avalara::Configuration to be used as a default for request invoice and request cancel_tax
