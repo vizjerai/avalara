@@ -18,8 +18,8 @@ describe Avalara::Configuration do
   end
 
   context '#endpoint' do
-    it 'defaults to https://rest.avalara.net' do
-      expect(configuration.endpoint).to eq 'https://rest.avalara.net'
+    it 'defaults to https://avatax.avalara.net' do
+      expect(configuration.endpoint).to eq 'https://avatax.avalara.net'
     end
 
     it 'may be overridden' do
