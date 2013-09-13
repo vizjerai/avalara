@@ -31,7 +31,7 @@ class Avalara::Configuration
   #
   def endpoint
     return @endpoint if @endpoint
-    test ? 'https://development.avalara.net' : 'https://rest.avalara.net'
+    test ? 'https://development.avalara.net' : 'https://avatax.avalara.net'
   end
 
   ##
