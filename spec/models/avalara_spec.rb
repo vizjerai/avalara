@@ -214,6 +214,12 @@ describe Avalara do
         expect { request }.to raise_error(Avalara::TimeoutError)
       end
     end
+
+    context 'with invalid json response', :vcr do
+      it 'raises an avalara unknown error' do
+        expect { request }.to raise_error(Avalara::Error)
+      end
+    end
   end
 
   describe '.geographical_tax' do
