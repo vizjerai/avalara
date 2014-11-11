@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'vcr', '>= 2.0.0'
   s.add_development_dependency 'webmock', '>= 1.9.1'
-  s.add_development_dependency 'rspec', '>= 2.0.0'
+  s.add_development_dependency 'rspec', '~> 2.0'
   s.add_development_dependency 'factory_girl', '>= 4.0.0'
   s.add_development_dependency 'ruby-debug19'
   s.add_development_dependency 'rake'
